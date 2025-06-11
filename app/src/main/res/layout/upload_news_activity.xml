@@ -20,7 +20,17 @@
             android:id="@+id/etSummary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Summary"
+            android:hint="Short Summary"
+            android:minLines="2"
+            android:gravity="top"
+            android:inputType="textMultiLine"
+            android:layout_marginTop="12dp" />
+
+        <EditText
+            android:id="@+id/etFullSummary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Full Summary"
             android:minLines="3"
             android:gravity="top"
             android:inputType="textMultiLine"

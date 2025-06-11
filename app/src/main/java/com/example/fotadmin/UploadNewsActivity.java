@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -29,7 +30,7 @@ public class UploadNewsActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 101;
 
-    private EditText etTitle, etSummary, etDate;
+    private EditText etTitle, etSummary, etFullSummary, etDate;
     private Button btnSelectImage, btnUpload;
     private ImageView ivSelectedImage;
     private Spinner spinnerCategory;
@@ -45,7 +46,8 @@ public class UploadNewsActivity extends AppCompatActivity {
         setContentView(R.layout.upload_news_activity);
 
         etTitle = findViewById(R.id.etTitle);
-        etSummary = findViewById(R.id.etSummary);
+        etSummary = findViewById(R.id.etSummary);  // Corrected variable name
+        etFullSummary = findViewById(R.id.etFullSummary);
         etDate = findViewById(R.id.etDate);
         btnSelectImage = findViewById(R.id.btnSelectImage);
         btnUpload = findViewById(R.id.btnUpload);
@@ -101,10 +103,11 @@ public class UploadNewsActivity extends AppCompatActivity {
     private void uploadArticle() {
         String title = etTitle.getText().toString().trim();
         String summary = etSummary.getText().toString().trim();
+        String fullSummary = etFullSummary.getText().toString().trim();
         String date = etDate.getText().toString().trim();
         String category = spinnerCategory.getSelectedItem().toString();
 
-        if (title.isEmpty() || summary.isEmpty() || date.isEmpty() || selectedImageUri == null) {
+        if (title.isEmpty() || summary.isEmpty() || fullSummary.isEmpty() || date.isEmpty() || selectedImageUri == null) {
             Toast.makeText(this, "Please fill all fields and select an image", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -116,7 +119,7 @@ public class UploadNewsActivity extends AppCompatActivity {
                     String imageUrl = uri.toString();
 
                     String articleId = database.child(category).push().getKey();
-                    Article article = new Article(articleId, title, summary, date, imageUrl);
+                    Article article = new Article(articleId, title, summary, fullSummary, date, imageUrl);
 
                     if (articleId != null) {
                         database.child(category).child(articleId).setValue(article)
@@ -135,6 +138,7 @@ public class UploadNewsActivity extends AppCompatActivity {
     private void clearForm() {
         etTitle.setText("");
         etSummary.setText("");
+        etFullSummary.setText("");
         etDate.setText("");
         ivSelectedImage.setImageURI(null);
         ivSelectedImage.setVisibility(ImageView.GONE);

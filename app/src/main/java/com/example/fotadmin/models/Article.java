@@ -4,6 +4,7 @@ public class Article {
     private String id;         // Firebase key
     private String title;
     private String summary;
+    private String fullSummary; // Added fullSummary field
     private String date;
     private String imageUrl;   // URL from Firebase Storage
 
@@ -11,10 +12,11 @@ public class Article {
         // Required empty constructor for Firebase
     }
 
-    public Article(String id, String title, String summary, String date, String imageUrl) {
+    public Article(String id, String title, String summary, String fullSummary, String date, String imageUrl) {
         this.id = id;
         this.title = title;
         this.summary = summary;
+        this.fullSummary = fullSummary; // Initialize fullSummary
         this.date = date;
         this.imageUrl = imageUrl;
     }
@@ -27,6 +29,9 @@ public class Article {
 
     public String getSummary() { return summary; }
     public void setSummary(String summary) { this.summary = summary; }
+
+    public String getFullSummary() { return fullSummary; }  // Getter for fullSummary
+    public void setFullSummary(String fullSummary) { this.fullSummary = fullSummary; } // Setter for fullSummary
 
     public String getDate() { return date; }
     public void setDate(String date) { this.date = date; }
